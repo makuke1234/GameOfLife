@@ -4,6 +4,7 @@
 ![C++ Version](https://img.shields.io/badge/version-C++20-blue.svg)
 
 An implementation of Conway's Game of Life written in C++20 using Win32 API.
+Modern design principles have been followed, utilising the latest features of C++20.
 
 
 # Obtaining
