@@ -17,21 +17,32 @@
 
 #include <cstdint>
 
+#if __cplusplus > 201703L
+#define CPP20
+#endif
+
 
 namespace argparser
 {
 	namespace regex
-	{
-		[[nodiscard]] inline std::string dashTemplate(std::string_view variableStr)
-		{
-			std::string buildStr{ R"reg(^(?:--?|/))reg" };
-			buildStr.append(variableStr.cbegin(), variableStr.cend());
-			buildStr.append(R"reg((.+))reg");
-			return buildStr;
-		}
-		
+	{	
 		namespace private_
 		{
+			#ifdef CPP20
+
+			template<size_t N>
+			struct StringLiteral
+			{
+				constexpr StringLiteral(const char (&str)[N]) noexcept
+				{
+					std::copy_n(str, N, value);
+				}
+				
+				char value[N];
+			};
+
+			#endif
+
 			[[nodiscard]] inline std::string dashTemplateVecAppend(std::string_view str1)
 			{
 				std::string buildStr{ "(?:" };
@@ -54,15 +65,38 @@ namespace argparser
 			}
 		}
 
+		#ifdef CPP20
+		template<private_::StringLiteral regex = R"reg((.+))reg">
+		#endif
+		[[nodiscard]] inline std::string dashTemplate(std::string_view variableStr)
+		{
+			std::string buildStr{ R"reg(^(?:--?|/))reg" };
+			buildStr.append(variableStr.cbegin(), variableStr.cend());
+			#ifdef CPP20
+			buildStr.append(regex);
+			#else
+			buildStr.append(R"reg((.+))reg");
+			#endif
+			return buildStr;
+		}
 		
+		#ifdef CPP20
+		template<private_::StringLiteral regex = R"reg((.+))reg", class ... Args>
+		#else
 		template<class ... Args>
+		#endif
 		[[nodiscard]] std::string dashTemplate(Args && ... args)
 		{
 			std::string buildStr{ R"reg(^(?:--?|/)(?:)reg" };
 
 			buildStr.append(private_::dashTemplateVecAppend(std::forward<Args>(args)...));
 
-			buildStr.append(R"reg()(.+))reg");
+			buildStr += ')';
+			#ifdef CPP20
+			buildStr.append(regex.value);
+			#else
+			buildStr.append(R"reg((.+))reg");
+			#endif
 			return buildStr;
 		}
 	}
@@ -138,13 +172,16 @@ namespace argparser
 			std::size_t toArg   = Tokeniser::any
 		) noexcept
 		{
+			if (this->m_args.empty())
+				return {};
+
 			std::regex patternExp{ pattern.begin(), pattern.end() };
 			auto scanToken = [patternExp](std::string_view input) noexcept -> Token
 			{
 				// Do regex checking
 				MatchType sm;
 				if (auto ret{ std::regex_match(input.cbegin(), input.cend(), sm, patternExp) }; ret == true && sm.size() > 1)
-					return sm.str(1);
+					return sm.str(sm.size() - 1);
 				else
 					return {};
 			};

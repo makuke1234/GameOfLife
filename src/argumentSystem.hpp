@@ -36,6 +36,6 @@ namespace gol
 
 		[[nodiscard]] bool empty() const noexcept;
 
-		[[nodiscard]] gol::Logic::CoordGridT parseFile() const;
+		[[nodiscard]] gol::Logic::CoordGridT parseFile();
 	};
 }

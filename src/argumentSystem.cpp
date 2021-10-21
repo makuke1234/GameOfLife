@@ -42,7 +42,7 @@ gol::ArgSystem::ArgSystem(LPCWSTR args)
 {
 	this->m_tokeniser = argparser::Tokeniser(this->m_origPair);
 	// Do argument parsing here
-	auto token{ this->m_tokeniser.tokenise(argparser::regex::dashTemplate("input=", "in=", "infile="), 1) };
+	auto token{ this->m_tokeniser.tokenise(argparser::regex::dashTemplate<R"reg(("*)?(.+)\1$)reg">("input=", "in=", "infile="), 1) };
 	if (token == true)
 	{
 		this->fileName = utf::conv<std::wstring>(token.get());
@@ -66,12 +66,18 @@ gol::ArgSystem::~ArgSystem()
 }
 
 
-[[nodiscard]] gol::Logic::CoordGridT gol::ArgSystem::parseFile() const
+[[nodiscard]] gol::Logic::CoordGridT gol::ArgSystem::parseFile()
 {
 	if (this->fileName.empty())
 		return {};
 
 	w32::FastFile inputf(this->fileName);
+
+	if (!inputf.isOpen())
+	{
+		this->fileName.clear();
+		return {};
+	}
 
 	std::string infoStr;
 	{

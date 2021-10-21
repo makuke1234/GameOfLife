@@ -1,7 +1,7 @@
 CXX=g++
 includePath="./include"
 
-CDEFFLAGS=-std=c++17 -Wall -Wextra -Wpedantic -Wconversion -Wunused-variable -mwindows -I$(includePath)
+CDEFFLAGS=-std=c++20 -Wall -Wextra -Wpedantic -Wconversion -Wunused-variable -mwindows -I$(includePath)
 CDEBFLAGS=-g -O0
 CFLAGS=-O3 -Wl,--strip-all,--build-id=none,--gc-sections -fno-ident
 LIB=-municode -lgdi32 -static

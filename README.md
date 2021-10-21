@@ -1,9 +1,9 @@
 # Conway's Game of Life
 
 ![Release version](https://img.shields.io/badge/beta-v0.9.0-green.svg)
-![C++ Version](https://img.shields.io/badge/version-C++17-blue.svg)
+![C++ Version](https://img.shields.io/badge/version-C++20-blue.svg)
 
-An implementation of Conway's Game of Life written in C++17 using Win32 API.
+An implementation of Conway's Game of Life written in C++20 using Win32 API.
 
 
 # Obtaining
