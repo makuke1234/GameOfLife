@@ -9,7 +9,7 @@ Modern design principles have been followed, utilising the latest features of C+
 
 # Obtaining
 
-The x64 Windows binary can be downloaded [here](https://raw.githubusercontent.com/makuke1234/GameOfLife/master/GameOfLife.exe).
+The x64 Windows binary can be downloaded [here](https://github.com/makuke1234/GameOfLife/releases/tag/Beta).
 
 
 # License
