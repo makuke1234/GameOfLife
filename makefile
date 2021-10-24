@@ -46,6 +46,13 @@ debug: $(DOBJ) debug_obj
 release: $(OBJ) release_obj
 
 
+debbulk: bulkcompile.cpp
+	$(CXX) $^ -o deb$(TARGET).exe $(CDEFFLAGS) $(CDEBFLAGS) $(LIB)
+
+relbulk: bulkcompile.cpp
+	$(CXX) $^ -o $(TARGET).exe $(CDEFFLAGS) $(CFLAGS) $(LIB)
+
+
 clean.o:
 	IF EXIST $(OBJ) rd /s /q $(OBJ)
 	IF EXIST $(DOBJ) rd /s /q $(DOBJ)

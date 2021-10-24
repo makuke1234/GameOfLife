@@ -108,7 +108,7 @@ bool gol::GameOfLifeClass::p_createWindow() noexcept
 				GameOfLifeClass::c_windowName,
 				w32::Msg::IError | w32::Msg::BOK
 			);
-			::DestroyWindow(hwnd);
+			return -1;
 		}
 		break;
 	default:
