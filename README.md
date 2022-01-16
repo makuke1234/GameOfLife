@@ -1,6 +1,7 @@
 # Conway's Game of Life
 
-![Release version](https://img.shields.io/badge/beta-v0.9.0-green.svg)
+[![Release version](https://img.shields.io/github/v/release/makuke1234/GameOfLife?display_name=release&include_prereleases)](https://github.com/makuke1234/GameOfLife/releases/latest)
+[![Total downloads](https://img.shields.io/github/downloads/makuke1234/GameOfLife/total)](https://github.com/makuke1234/GameOfLife/releases)
 ![C++ Version](https://img.shields.io/badge/version-C++20-blue.svg)
 
 An implementation of Conway's Game of Life written in C++20 using Win32 API.
