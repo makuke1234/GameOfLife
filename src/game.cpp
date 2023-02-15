@@ -231,8 +231,3 @@ void gol::Logic::makeNewGrid()
 	this->makeNewGrid();
 	return this->getGrid();
 }
-
-[[nodiscard]] bool gol::Logic::empty() const noexcept
-{
-	return this->m_grid.empty();
-}

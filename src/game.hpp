@@ -86,6 +86,9 @@ namespace gol
 			return this->m_grid;
 		}
 
-		[[nodiscard]] bool empty() const noexcept;
+		[[nodiscard]] constexpr bool empty() const noexcept
+		{
+			return this->m_grid.empty();
+		}
 	};
 }
